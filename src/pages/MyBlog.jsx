@@ -7,11 +7,14 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useSelector, useDispatch } from 'react-redux';
 import useBlogsCalls from '../hooks/useBlogsCalls';
 import { getNewBlog, postSuccess } from '../features/blogSlice';
+import { useNavigate } from 'react-router-dom';
 
 const MyBlog = () => {
 
   const {userBlog} = useSelector(state => state.blog);
   const { getUserBlogData } = useBlogsCalls();
+
+  const navigate= useNavigate();
 
   useEffect(() => {
     getUserBlogData();
@@ -44,7 +47,7 @@ const MyBlog = () => {
             <IconButton aria-label="share">
               <VisibilityIcon />
             </IconButton>
-            <Button size="small">Read More</Button>
+            <Button size="small" onClick={()=> navigate("/detail/" + a.id, {state:{a}})}>Read More</Button>
           </CardActions>
         </Card>
       ))}

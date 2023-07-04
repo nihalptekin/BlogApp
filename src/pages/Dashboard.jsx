@@ -39,19 +39,19 @@ const Dashboard = () => {
 
   return (
     <>
-      {data.map(blog=>(
-        <Card key={blog.id} sx={{ maxWidth: 345 }}>
+      {data.map(a=>(
+        <Card key={a.id} sx={{ maxWidth: 345 }}>
           <CardMedia
             sx={{ height: 140 }}
-            image={blog.image}
+            image={a.image}
             title="card image"
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
-              {blog.title}
+              {a.title}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {blog.content.slice(0, 100)}...
+              {a.content.slice(0, 100)}...
             </Typography>
           </CardContent>
           <CardActions>
@@ -64,7 +64,7 @@ const Dashboard = () => {
             <IconButton aria-label="share">
               <VisibilityIcon /> {visibilityCount}
             </IconButton>
-            <Button size="small" onClick={ (login) ? ()=>navigate("/detail", {state:{blog}})
+            <Button size="small" onClick={ (login) ? ()=>navigate("/detail/" + a.id, {state:{a}})
   : navigate("/login")}> Read More </Button>
           </CardActions>
         </Card>

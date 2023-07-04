@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { postBlogData, postSuccess } from '../features/blogSlice';
 
 const NewBlog = () => {
-  const { getCategories, postBlogData,} = useBlogsCalls();
+  const { getCategories, postBlogData} = useBlogsCalls();
   const { categories } = useSelector(state => state.blog);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,19 +29,18 @@ const NewBlog = () => {
     setInfo({ ...info, [e.target.name]: e.target.value });
 
   };
-
-
-  console.log(info);
+console.log(info);
 
 
   const handleSubmit = e => {
     e.preventDefault();
 
-     postBlogData("userBlog", info);
+     postBlogData(info);
 
     navigate("/my-blogs");
     handleClose();
   };
+
 
 
 
@@ -117,7 +116,7 @@ const NewBlog = () => {
               onChange={handleChange}
             >
               {categories?.map(category => (
-                <MenuItem key={category.id} value={category.name}>
+                <MenuItem key={category.id} value={category.id}>
                   {category.name}
                 </MenuItem>
               ))}

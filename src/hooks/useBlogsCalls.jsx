@@ -7,6 +7,8 @@ const useBlogsCalls = () => {
   const dispatch = useDispatch();
 
   const {currentUser}= useSelector(state=>state.auth)
+  const{userBlog}=useSelector(state=>state.blog)
+
   const { axiosWithPublic, axiosWithToken } = useAxios();
   
 
@@ -23,8 +25,8 @@ const useBlogsCalls = () => {
   const postBlogData = async (info)=> {
     dispatch(fetchStart());
     try {
-      const {userBlog}= await axiosWithToken.post("api/blogs/", info)
-      dispatch(postUserBlog(userBlog));
+      await axiosWithToken.post("api/blogs/", info)
+      // dispatch(postUserBlog());
       toastSuccessNotify("Successfuly created!");
     } catch (error) {
       dispatch(fetchFail());
@@ -49,8 +51,8 @@ const useBlogsCalls = () => {
   const getUserBlogData = async ()=> {
     dispatch(fetchStart());
     try {
-       const {userBlog} = await axiosWithToken.get(`api/blogs/?author=${currentUser.id}`)
-      dispatch(getUserBlogSuccess(userBlog));
+       const {data} = await axiosWithToken.get(`api/blogs/?author=${currentUser.id}`)
+      dispatch(getUserBlogSuccess(data));
 
     } catch (error) {
       dispatch(fetchFail());
@@ -92,8 +94,23 @@ const useBlogsCalls = () => {
   };
 
 
+  const deleteBlogData = async (id) => {
+    dispatch(fetchStart());
+    try {
+      await axiosWithToken.delete(`api/blogs/${id}`);
+      getUserBlogSuccess();
+      toastSuccessNotify("Blog successfully deleted!");
+    } catch (error) {
+      dispatch(fetchFail());
+      toastErrorNotify("Blog deletion failed!");
+    }
+  };
+  
+  
 
-  return { getBlogData,getCommentData, getCategories, postCategories, postBlogData, getUserBlogData};
+
+
+  return { getBlogData,getCommentData, getCategories, postCategories, postBlogData, getUserBlogData, deleteBlogData};
 };
 
 export default useBlogsCalls;

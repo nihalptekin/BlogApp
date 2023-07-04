@@ -11,7 +11,7 @@ const blogSlice = createSlice({
             data:[],    
             comments :[],
             categories:[],
-            userBlog:[]
+            userBlog:[],
           
         }
           , 

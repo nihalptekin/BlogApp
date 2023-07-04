@@ -8,9 +8,12 @@ import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import { useLocation } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import CommentForm from "../components/blog/CommentForm";
 import CommentCard from "../components/blog/CommentCard";
+import { Button } from "@mui/material";
+import { useSelector } from "react-redux";
+import useBlogsCalls from "../hooks/useBlogsCalls";
 
 
 
@@ -24,11 +27,11 @@ const Detail = () => {
   const [count, setCount] = useState(0);
   const [comment, setComment] =useState(false);
 
- 
+  const {currentUser}=useSelector(state=>state.auth)
+  const {deleteBlogData}=useBlogsCalls();
 
-  const a=location.state.blog
 
-
+ const a=location.state.a
 
   const handleClick = () => {
     setColor(!color);
@@ -46,6 +49,12 @@ const Detail = () => {
    
   
 };
+
+
+
+const handleUpdateBlog=()=>{
+
+}
 
   return (
     <div>
@@ -72,11 +81,19 @@ const Detail = () => {
             <VisibilityIcon/>
           </IconButton>
         </CardActions>
+        {currentUser && (
+  <>
+    <Button variant="contained" onClick={handleUpdateBlog}>Update Blog</Button>
+    <Button variant="contained" onClick={()=> deleteBlogData("userBlog", a.id )}>Delete Blog</Button>
+  </>
+)}
       </Card>
       {comment && (
             <CommentCard />,
             <CommentForm />
           ) }
+
+         
     </div>
   );
 };
