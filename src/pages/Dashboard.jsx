@@ -38,11 +38,20 @@ const Dashboard = () => {
 
 
   return (
-    <>
+    <div >
       {data.map(a=>(
-        <Card key={a.id} sx={{ maxWidth: 345 }}>
+        <div > 
+    <Card key={a.id} sx={{maxWidth:345, 
+    m:4,
+    p: 4,
+    border:"solid",
+        width: "300px",
+        height: "400px",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",}}>
           <CardMedia
-            sx={{ height: 140 }}
+            sx={{ height: 200 }}
             image={a.image}
             title="card image"
           />
@@ -64,14 +73,15 @@ const Dashboard = () => {
             <IconButton aria-label="share">
               <VisibilityIcon /> {visibilityCount}
             </IconButton>
-            <Button size="small" onClick={ (login) ? ()=>navigate("/detail/" + a.id, {state:{a}})
+            <Button size="small" variant='contained' onClick={ (login) ? ()=>navigate("/detail/" + a.id, {state:{a}})
   : navigate("/login")}> Read More </Button>
           </CardActions>
-        </Card>
+        </Card></div>
+       
       ))}
   
         
-    </>
+    </div>
   );
 };
 

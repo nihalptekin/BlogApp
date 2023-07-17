@@ -8,12 +8,13 @@ import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import CommentForm from "../components/blog/CommentForm";
 import CommentCard from "../components/blog/CommentCard";
 import { Button } from "@mui/material";
 import { useSelector } from "react-redux";
 import useBlogsCalls from "../hooks/useBlogsCalls";
+import UpdateModal from "../components/blog/UpdateModal"
 
 
 
@@ -21,17 +22,29 @@ const Detail = () => {
 
 
   const location = useLocation();
-
-
+  const navigate=useNavigate();
   const [color, setColor] = useState(false);
   const [count, setCount] = useState(0);
   const [comment, setComment] =useState(false);
-
   const {currentUser}=useSelector(state=>state.auth)
   const {deleteBlogData}=useBlogsCalls();
 
-
  const a=location.state.a
+ const [info, setInfo]=useState(a);
+
+
+ const [open, setOpen]=useState(false);
+ const handleOpen = () => setOpen(true);
+
+ const handleClose = () => {
+  setOpen(false);
+  setInfo({
+    name: "",
+    phone: "",
+    image: "",
+    address: "",
+  });
+};
 
   const handleClick = () => {
     setColor(!color);
@@ -47,14 +60,7 @@ const Detail = () => {
   const handleCommentClick =()=>{
     setComment(!comment); 
    
-  
 };
-
-
-
-const handleUpdateBlog=()=>{
-
-}
 
   return (
     <div>
@@ -83,13 +89,14 @@ const handleUpdateBlog=()=>{
         </CardActions>
         {currentUser && (
   <>
-    <Button variant="contained" onClick={handleUpdateBlog}>Update Blog</Button>
-    <Button variant="contained" onClick={()=> deleteBlogData("userBlog", a.id )}>Delete Blog</Button>
+    <Button variant="contained" onClick={handleOpen}> Update Blog</Button>
+    <UpdateModal a={a} info={info} setInfo={setInfo} open={open} handleClose={handleClose} /> 
+    <Button variant="contained" onClick={()=> {deleteBlogData(a.id); navigate("/");}}>Delete Blog</Button>
   </>
 )}
       </Card>
       {comment && (
-            <CommentCard />,
+           <CommentCard />,
             <CommentForm />
           ) }
 

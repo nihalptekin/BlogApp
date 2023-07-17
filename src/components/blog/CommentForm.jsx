@@ -8,9 +8,10 @@ import { useSelector } from 'react-redux';
 
 
 const CommentForm = () => {
-  const { getCommentData } = useBlogsCalls();
+  const { getCommentData, PostCommentData } = useBlogsCalls();
   const { data } = useSelector(state => state.blog);
-  const [comment, setComment] = useState('');
+  // const [comment, setComment] = useState('');
+
 
 
 useEffect(() => {
@@ -19,23 +20,18 @@ getCommentData()
 
 const handleSubmit = (e) => {
   e.preventDefault();
-
-handleChange()
-
-  // dispatch({ type: 'ADD_COMMENT', payload: newComment });
-  setComment('');
 };
 
 
 const handleChange=(e)=>{
-  setComment(e.target.value)
+  PostCommentData(e.target.value)
 
 }
 
   return (
     <div>
-    <CommentCard handleChange={handleSubmit}/>
-      <Box component="form" onSubmit={handleSubmit}>
+    {handleSubmit ? 
+    <CommentCard handleChange={handleChange}/> } :{  <Box component="form" onSubmit={handleSubmit}>
         <TextField
           sx={{ width: '750px', justifyContent: 'center' }}
           id="outlined-multiline-static"
@@ -43,14 +39,16 @@ const handleChange=(e)=>{
           multiline
           rows={2}
           placeholder="Add a comment"
-          value={comment} // TextField değeri
+          value={data.comments} // TextField değeri
           onChange={handleChange}
         />
 
         <Button variant="contained" sx={{ backgroundColor: 'orange' }} type="submit">
           ADD COMMENT
         </Button>
-      </Box>
+      </Box>} 
+
+    
     </div>
   );
 };

@@ -1,58 +1,38 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Button, Typography } from '@mui/material';
+import { Button, Modal, Typography } from '@mui/material';
 import { useState } from "react";
 import { Box, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
-import useBlogsCalls from "../hooks/useBlogsCalls";
+
 import { useNavigate } from "react-router-dom";
+import useBlogsCalls from '../../hooks/useBlogsCalls';
 
 
-const NewBlog = () => {
-  const { getCategories, postBlogData} = useBlogsCalls();
-  const { categories } = useSelector(state => state.blog);
+const UpdateModal = ({info, setInfo, open, handleClose}) => {
+  const { getCategories, putBlogData } = useBlogsCalls();
+ const { categories } = useSelector(state => state.blog);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [info, setInfo] = useState({
-    title: "",
-    image: "",
-    category: "",
-    status: "",
-    content: "",
-  });
 
   useEffect(() => {
     getCategories("categories");
   }, []);
 
   const handleChange = e => {
-    setInfo({ ...info, [e.target.name]: e.target.value });
-
-  };
-console.log(info);
-
+    setInfo({ ...info, [e.target.name]: e.target.value }); 
+  }; 
 
   const handleSubmit = e => {
     e.preventDefault();
 
-     postBlogData(info);
+    putBlogData(info);
 
     navigate("/my-blogs");
     handleClose();
   };
 
 
-
-  const handleClose = () => {
-    setInfo({
-      name: "",
-      phone: "",
-      image: "",
-      address: "",
-    });
-  };
-
-  
   const flexStyle = {
     display: "flex",
     flexDirection: "column",
@@ -73,10 +53,18 @@ console.log(info);
   };
 
   return (
-    <Box sx={BoxStyle}>
-      <form onSubmit={handleSubmit}>
+    <Modal
+       open={open}
+        onClose={()=> {
+          handleClose();
+        }}
+    aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description">
+    
+     <Box sx={BoxStyle} >
+      <Box component={"form"} onSubmit={handleSubmit}>
         <Box sx={flexStyle}>
-          <Typography variant="h3">New Blog</Typography>
+          <Typography variant="h3">Update Blog</Typography>
 
           <TextField
             id="title"
@@ -85,18 +73,6 @@ console.log(info);
             name="title"
             onChange={handleChange}
             value={info.title}
-            multiline
-            maxRows={4}
-            required
-          />
-
-          <TextField
-            id="image"
-            label="image-URL"
-            type="url"
-            name="image"
-            onChange={handleChange}
-            value={info.image}
             multiline
             maxRows={4}
             required
@@ -154,12 +130,14 @@ console.log(info);
           />
 
           <Button type="submit" variant="contained">
-            New Blog
+            Update Blog
           </Button>
         </Box>
-      </form>
-    </Box>
+      </Box>
+    </Box> 
+    </Modal>
+   
   );
 };
 
-export default NewBlog;
+export default UpdateModal;

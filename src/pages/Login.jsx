@@ -6,7 +6,6 @@ import Typography from "@mui/material/Typography";
 import LockIcon from "@mui/icons-material/Lock";
 import { Link } from "react-router-dom";
 import { Formik } from "formik";
-import useAuthCall from "../hooks/useAuthCalls";
 import LoginForm, { loginScheme } from "../components/auth/LoginForm";
 import useAuthCalls from "../hooks/useAuthCalls";
 

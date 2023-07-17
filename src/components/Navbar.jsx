@@ -15,6 +15,10 @@ import AdbIcon from "@mui/icons-material/Adb";
 import { Link, useNavigate } from "react-router-dom";
 import useAuthCalls from "../hooks/useAuthCalls";
 import { useSelector } from "react-redux";
+import { orange } from '@mui/material/colors';
+
+import logo from "../assest/Yellow Typography Hoppy Easter Card.png"
+
 
 const pages = ["Dashboard", "New Blog", "About"];
 const settings = ["My Blogs", "Profile", "Logout"];
@@ -22,6 +26,7 @@ const settings = ["My Blogs", "Profile", "Logout"];
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
 
   const { currentUser } = useSelector((state) => state.auth);
   const { login, logout } = useAuthCalls();
@@ -43,6 +48,7 @@ function Navbar() {
   };
 
   const handleLoginClick = () => {
+
     navigate("/login");
   };
 
@@ -62,27 +68,40 @@ function Navbar() {
     logout();
   };
 
+const navbarStyle={
+  backgroundColor:"#b388ff", 
+  height:200,
+
+
+}
+
+const typographyStyle ={
+
+    mr: 2,
+    display: { xs: "none", md: "flex" },
+    fontFamily: "monospace",
+    fontWeight: 600,
+    fontSize:25 ,
+    letterSpacing: ".3rem",
+    color: "inherit",
+    textDecoration: "none",
+
+}
+
   return (
-    <AppBar position="static">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+    <div> 
+    <AppBar position="static"  sx={navbarStyle} >
+      <Container maxWidth="xl" >
+        <Toolbar disableGutters >
+        <img src={logo} style={{width:150, height:150, borderRadius:80, marginTop:"25px", justifyContent:"start",   marginLeft:-130}}/>
           <Typography
             variant="h6"
             noWrap
             component="a"
             href="/"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
+            sx={typographyStyle}
           >
-            LOGO
+       
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -115,14 +134,15 @@ function Navbar() {
               }}
             >
               <MenuItem onClick={handleCloseNavMenu}>
-                <Typography textAlign="center" onClick={handleDashboardClick}>
+                <Typography textAlign="center" onClick={handleDashboardClick}
+                sx={typographyStyle}>
                   DASHBOARD
                 </Typography>
               </MenuItem>
 
               <Link to="/new-blog">
               <MenuItem onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">NEW BLOG</Typography>
+                  <Typography textAlign="center">NEWBLOG</Typography>
      
               </MenuItem>
               </Link>
@@ -153,20 +173,21 @@ function Navbar() {
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             <Button
               onClick={handleDashboardClick}
-              sx={{ my: 2, color: "white", display: "block" }}
+              sx={ typographyStyle}
             >
               DASHBOARD
             </Button>
 
             <Button
               onClick={()=>navigate("/new-blog")}
-              sx={{ my: 2, color: "white", display: "block" }}
+
+              sx={ typographyStyle}
             >
               NEW BLOG
             </Button>
             <Button
               // onClick={handle}
-              sx={{ my: 2, color: "white", display: "block" }}
+              sx={ typographyStyle}
             >
               ABOUT
             </Button>
@@ -175,7 +196,7 @@ function Navbar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="" src="/static/images/avatar/2.jpg" sx={{width:70, height:70, backgroundColor:"white", color:"orange"}} />
               </IconButton>
             </Tooltip>
             <Menu
@@ -196,8 +217,7 @@ function Navbar() {
             >
               <MenuItem onClick={handleCloseUserMenu}>
                 <Typography textAlign="center" onClick={handleLoginClick}>
-                  {" "}
-                  Login{" "}
+                  Login
                 </Typography>
               </MenuItem>
 
@@ -228,7 +248,8 @@ function Navbar() {
           </Box>
         </Toolbar>
       </Container>
-    </AppBar>
+    </AppBar></div>
+   
   );
 }
 export default Navbar;

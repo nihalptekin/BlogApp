@@ -7,7 +7,8 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useSelector, useDispatch } from 'react-redux';
 import useBlogsCalls from '../hooks/useBlogsCalls';
 import { getNewBlog, postSuccess } from '../features/blogSlice';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { BorderAllRounded } from '@mui/icons-material';
 
 const MyBlog = () => {
 
@@ -15,16 +16,30 @@ const MyBlog = () => {
   const { getUserBlogData } = useBlogsCalls();
 
   const navigate= useNavigate();
+  const location = useLocation();
+  // const { info, setInfo } = location.state || {};
 
   useEffect(() => {
     getUserBlogData();
   }, []);
 
   return (
-    <div >
+    <div sx={{  display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    BorderAllRounded:30,
+    }}>
       {userBlog?.map(a => (
-        <Card sx={{ maxWidth: 345 }} key={a.id}>
-          <CardMedia sx={{ height: 140 }} image={a.image} title={a.image} />
+        <div sx={{flexBasis: "300px", justifyContent: "flex-end" }}>
+        <Card sx={{ maxWidth: 345 , 
+      p: 4,
+      width: "300px",
+      height: "400px",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent:"space-between"
+     }} key={a.id}>
+          <CardMedia sx={{ height: 240, objectFit: "contain" }} image={a.image} title={a.image} />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
               {a.title}
@@ -47,9 +62,10 @@ const MyBlog = () => {
             <IconButton aria-label="share">
               <VisibilityIcon />
             </IconButton>
-            <Button size="small" onClick={()=> navigate("/detail/" + a.id, {state:{a}})}>Read More</Button>
+            <Button size="small" onClick={()=>navigate("/detail/" + a.id, {state:{a}})}>Read More</Button>
           </CardActions>
-        </Card>
+        </Card></div>
+        
       ))}
     </div>
   );
