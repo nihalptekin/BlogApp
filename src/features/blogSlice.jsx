@@ -11,7 +11,10 @@ const blogSlice = createSlice({
             data:[],    
             categories:[],
             userBlog:[],
-          
+            comments: [],
+            detail: [],
+            like: "",
+
         }
           , 
           reducers: {
@@ -44,9 +47,10 @@ const blogSlice = createSlice({
                 state.data.id = action.payload.id; 
 
               }, 
+
               getComments:(state, {payload})=>{
                 state.loading =false; 
-                state.comments=payload?.comments
+                state.comments[0]=payload
               },
 
               getCategory:(state, action)=>{
@@ -60,11 +64,13 @@ const blogSlice = createSlice({
                 state.categories=action.payload
               },
 
-          
-
             fetchFail: state => {
               state.loading = false;
               state.error = true;
+            },
+            postLikeSuccess: (state, { payload }) => {
+              state.loading = false;
+              state.like = payload;
             },
           },
         });
@@ -73,11 +79,14 @@ const blogSlice = createSlice({
             fetchStart,
             fetchFail,
             getSuccess,
-            getComments,
             getCategory,
             postSuccess,
             postUserBlog,
             getUserBlogSuccess,
+            postComments,
+            getComments, 
+            postLikeSuccess
+          
      
           } = blogSlice.actions;
 

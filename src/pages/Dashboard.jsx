@@ -20,7 +20,7 @@ const Dashboard = () => {
   const { getBlogData } = useBlogsCalls();
   const { data } = useSelector(state => state.blog);
   const navigate=useNavigate();
-  const [visibilityCount, setVisibilityCount ] =useState(0)
+  const [visibilityCount, setVisibilityCount ]=useState(0)
   const { login } = useAuthCalls();
 
   useEffect(() => {
@@ -73,7 +73,7 @@ const Dashboard = () => {
             <IconButton aria-label="share">
               <VisibilityIcon /> {visibilityCount}
             </IconButton>
-            <Button size="small" variant='contained' onClick={ (login) ? ()=>navigate("/detail/" + a.id, {state:{a}})
+            <Button size="small" variant='contained'  onClick={(login) ? () => navigate("/detail/" + a.id, { state: { a } })
   : navigate("/login")}> Read More </Button>
           </CardActions>
         </Card></div>

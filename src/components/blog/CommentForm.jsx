@@ -1,54 +1,44 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import CommentCard from './CommentCard';
 import { Box, TextField } from '@mui/material';
 import Button from '@mui/material/Button';
 import useBlogsCalls from '../../hooks/useBlogsCalls';
+import { useSearchParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
+const CommentForm = ({ commentId }) => {
+  const { postCommentData } = useBlogsCalls();
 
+  const [yorum, setYorum] = useState({ content: '', post: 1 });
 
-const CommentForm = () => {
-  const { getCommentData, PostCommentData } = useBlogsCalls();
-  const { data } = useSelector(state => state.blog);
-  // const [comment, setComment] = useState('');
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    postCommentData(commentId, yorum);
 
+    // Form gönderildikten sonra yeni yorum içeriğini temizle
+    setYorum({ content: '', post: 1 });
+  };
 
-
-useEffect(() => {
-getCommentData()
-}, [])
-
-const handleSubmit = (e) => {
-  e.preventDefault();
-};
-
-
-const handleChange=(e)=>{
-  PostCommentData(e.target.value)
-
-}
+  console.log('yorum', yorum);
 
   return (
     <div>
-    {handleSubmit ? 
-    <CommentCard handleChange={handleChange}/> } :{  <Box component="form" onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <TextField
           sx={{ width: '750px', justifyContent: 'center' }}
-          id="outlined-multiline-static"
+          id="ccc"
           label="Comment"
           multiline
           rows={2}
           placeholder="Add a comment"
-          value={data.comments} // TextField değeri
-          onChange={handleChange}
+          value={yorum.content}
+          onChange={(e) => setYorum({ ...yorum, content: e.target.value })}
         />
-
         <Button variant="contained" sx={{ backgroundColor: 'orange' }} type="submit">
           ADD COMMENT
         </Button>
-      </Box>} 
-
-    
+      </form>
+      <CommentCard commentId={commentId} />
     </div>
   );
 };

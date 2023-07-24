@@ -1,13 +1,15 @@
 import { useDispatch, useSelector } from 'react-redux';
 import useAxios from './useAxios';
-import { getSuccess, fetchStart, fetchFail, postSuccess, getCategory, postUserBlog, getUserBlogSuccess } from '../features/blogSlice';
+import { getSuccess, fetchStart, fetchFail,postLikeSuccess, postSuccess, getCategory, postUserBlog, getComments, getUserBlogSuccess, postComments} from '../features/blogSlice';
 import { toastErrorNotify, toastSuccessNotify } from '../helper/ToastNotify';
 import { useNavigate } from 'react-router-dom';
+import axios from "axios";
 
 const useBlogsCalls = () => {
   const dispatch = useDispatch();
   const navigate=useNavigate();
   const {currentUser}= useSelector(state=>state.auth)
+  const {comments}=useSelector(state=>state.blog)
 
 
   const { axiosWithPublic, axiosWithToken } = useAxios();
@@ -16,7 +18,7 @@ const useBlogsCalls = () => {
   const getBlogData = async ()=> {
     dispatch(fetchStart());
     try {
-      const { data } = await axiosWithPublic.get("api/blogs/");
+      const { data } = await axiosWithPublic.get("/api/blogs/");
       console.log(data);
       dispatch(getSuccess(data));
     } catch (error) {
@@ -26,7 +28,7 @@ const useBlogsCalls = () => {
   const postBlogData = async (info)=> {
     dispatch(fetchStart());
     try {
-      await axiosWithToken.post("api/blogs/", info)
+      await axiosWithToken.post("/api/blogs/", info)
       toastSuccessNotify("Successfuly created!");
     } catch (error) {
       dispatch(fetchFail());
@@ -34,10 +36,11 @@ const useBlogsCalls = () => {
     }
   };
 
+
   const getUserBlogData = async ()=> {
     dispatch(fetchStart());
     try {
-       const {data} = await axiosWithToken.get(`api/blogs/?author=${currentUser.id}`)
+       const {data} = await axiosWithToken.get(`/api/blogs/?author=${currentUser.id}`)
       dispatch(getUserBlogSuccess(data));
 
     } catch (error) {
@@ -46,28 +49,38 @@ const useBlogsCalls = () => {
     }
   };
 
-  const getCommentData = async (id)=> {
+  const postCommentData = async (commentId, comment) => {
     dispatch(fetchStart());
     try {
-      const { data } = await axiosWithToken.get(`/api/comments/${id}`);
-      console.log(data);
-      dispatch(getSuccess(data));
+      await axiosWithToken.post(`/api/comments/${commentId}/`, comment);
+      console.log("Yorum başarıyla gönderildi.");
     } catch (error) {
+      console.error("Yorum gönderirken bir hata oluştu:", error);
       dispatch(fetchFail());
     }
   };
 
-  const PostCommentData = async (id)=> {
+  const getCommentData = async (commentId) => {
     dispatch(fetchStart());
     try {
-      const { data } = await axiosWithToken.post(`/api/comments/${id}`);
-      console.log(data);
-      dispatch(postSuccess(data));
+      const { data } = await axiosWithToken.get(`/api/comments/${commentId}/`);
+      console.log("getcommentdata", data);
+      dispatch(getComments(data));
     } catch (error) {
       dispatch(fetchFail());
     }
   };
+  
 
+
+  // const postLikeSuccess = async (id)=> {
+  //   dispatch(fetchStart());
+  //   try {
+  //    await axiosWithPublic.post(`/api/comments/${id}`);
+  //   } catch (error) {
+  //     dispatch(fetchFail());
+  //   }
+  // };
   const getCategories = async ()=> {
     dispatch(fetchStart());
     try {
@@ -82,13 +95,13 @@ const useBlogsCalls = () => {
   const postCategories = async (id, info)=> {
     dispatch(fetchStart());
     try {
-      const { data } = await axiosWithToken.get(`/api/categories/${id}`, info);
+      const { data } = await axiosWithToken.post(`/api/categories/${id}`, info);
       console.log(data);
-      dispatch(getSuccess(data));
     } catch (error) {
       dispatch(fetchFail());
     }
   };
+
 
 
   const deleteBlogData = async (id) => {
@@ -115,7 +128,7 @@ const useBlogsCalls = () => {
   };
   
   
-  return { getBlogData,getCommentData, getCategories, postCategories, postBlogData, getUserBlogData, deleteBlogData, putBlogData, PostCommentData};
+  return { getBlogData, getCategories, postCategories, postBlogData, getUserBlogData, deleteBlogData, putBlogData, postCommentData, getCommentData, postLikeSuccess };
 };
 
 export default useBlogsCalls;

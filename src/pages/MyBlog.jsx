@@ -16,7 +16,7 @@ const MyBlog = () => {
   const { getUserBlogData } = useBlogsCalls();
 
   const navigate= useNavigate();
-  const location = useLocation();
+
   // const { info, setInfo } = location.state || {};
 
   useEffect(() => {

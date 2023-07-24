@@ -52,6 +52,8 @@ console.log(info);
     });
   };
 
+  console.log("categoryinfo", info);
+
   
   const flexStyle = {
     display: "flex",

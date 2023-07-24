@@ -14,23 +14,22 @@ import CommentCard from "../components/blog/CommentCard";
 import { Button } from "@mui/material";
 import { useSelector } from "react-redux";
 import useBlogsCalls from "../hooks/useBlogsCalls";
-import UpdateModal from "../components/blog/UpdateModal"
-
+import UpdateModal from "../components/blog/UpdateModal";
 
 
 const Detail = () => {
-
-
   const location = useLocation();
   const navigate=useNavigate();
   const [color, setColor] = useState(false);
   const [count, setCount] = useState(0);
   const [comment, setComment] =useState(false);
   const {currentUser}=useSelector(state=>state.auth)
-  const {deleteBlogData}=useBlogsCalls();
+  const {deleteBlogData, getBlogData}=useBlogsCalls();
+
 
  const a=location.state.a
- const [info, setInfo]=useState(a);
+ const [icerik, setIcerik]=useState(a);
+
 
 
  const [open, setOpen]=useState(false);
@@ -38,13 +37,17 @@ const Detail = () => {
 
  const handleClose = () => {
   setOpen(false);
-  setInfo({
-    name: "",
-    phone: "",
+  setIcerik( {
+    title: "",
+    currentUser: "",
+    content:"",
     image: "",
-    address: "",
+ 
   });
 };
+
+
+console.log("detailinfo", icerik);
 
   const handleClick = () => {
     setColor(!color);
@@ -61,6 +64,12 @@ const Detail = () => {
     setComment(!comment); 
    
 };
+// const handleVisibility = () => {
+//   if (currentUser) {
+//     setCount((prevInfo) => ({ ...prevInfo, post_views: prevInfo.post_views + 1 }));
+//   }
+// };
+
 
   return (
     <div>
@@ -77,30 +86,30 @@ const Detail = () => {
         <CardActions>
           <IconButton aria-label="add to favorites" onClick={handleClick}>
             <FavoriteIcon   sx={{ color: color ? "red" : "inherit" }}
-    /> {count}
+    /> 
           </IconButton>
             <IconButton aria-label="share" onClick={handleCommentClick}>
               <ChatBubbleOutlineIcon  />
+              <Typography variant="h5">0 count</Typography>
             </IconButton>
           
           <IconButton aria-label="share">
-            <VisibilityIcon/>
+            <VisibilityIcon />
+            <Typography variant="h5">0 z</Typography>
           </IconButton>
         </CardActions>
         {currentUser && (
   <>
     <Button variant="contained" onClick={handleOpen}> Update Blog</Button>
-    <UpdateModal a={a} info={info} setInfo={setInfo} open={open} handleClose={handleClose} /> 
+    <UpdateModal a={a} info={icerik} setInfo={setIcerik} open={open} handleClose={handleClose}/> 
     <Button variant="contained" onClick={()=> {deleteBlogData(a.id); navigate("/");}}>Delete Blog</Button>
   </>
 )}
       </Card>
       {comment && (
            <CommentCard />,
-            <CommentForm />
-          ) }
-
-         
+           <CommentForm commentId={icerik.id} setComment={setIcerik} comment={icerik}/>
+          )}
     </div>
   );
 };
