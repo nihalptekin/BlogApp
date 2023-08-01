@@ -13,7 +13,7 @@ const blogSlice = createSlice({
             userBlog:[],
             comments: [],
             detail: [],
-            like: "",
+            like: 0,
 
         }
           , 

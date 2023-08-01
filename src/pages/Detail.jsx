@@ -16,64 +16,68 @@ import { useSelector } from "react-redux";
 import useBlogsCalls from "../hooks/useBlogsCalls";
 import UpdateModal from "../components/blog/UpdateModal";
 
-
 const Detail = () => {
   const location = useLocation();
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const [color, setColor] = useState(false);
   const [count, setCount] = useState(0);
-  const [comment, setComment] =useState(false);
-  const {currentUser}=useSelector(state=>state.auth)
-  const {deleteBlogData, getBlogData}=useBlogsCalls();
+  const [comment, setComment] = useState(false);
+  const { currentUser } = useSelector((state) => state.auth);
+  const { deleteBlogData, postLikeSuccess } = useBlogsCalls();
+  const [visibilityCount, setVisibilityCount] = useState(0);
+
+  const a = location.state.a;
+
+  const [icerik, setIcerik] = useState(a);
 
 
- const a=location.state.a
- const [icerik, setIcerik]=useState(a);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
 
-
-
- const [open, setOpen]=useState(false);
- const handleOpen = () => setOpen(true);
-
- const handleClose = () => {
-  setOpen(false);
-  setIcerik( {
-    title: "",
-    currentUser: "",
-    content:"",
-    image: "",
- 
-  });
-};
-
-
-console.log("detailinfo", icerik);
-
-  const handleClick = () => {
-    setColor(!color);
-
-    if (color===false) {
-        setCount(count + 1);
-      }
-
-    else {setCount(count-1)}
-    
+  const handleVisibility=()=>{
+    setVisibilityCount(visibilityCount+1)
+  }
+  
+  const handleClose = () => {
+    setOpen(false);
+    setIcerik({
+      title: "",
+      currentUser: "",
+      content: "",
+      image: "",
+      likes: 0,
+    });
   };
 
-  const handleCommentClick =()=>{
-    setComment(!comment); 
-   
-};
-// const handleVisibility = () => {
-//   if (currentUser) {
-//     setCount((prevInfo) => ({ ...prevInfo, post_views: prevInfo.post_views + 1 }));
-//   }
-// };
+  const handleLikeClick = () => {
+    postLikeSuccess(a.id); // a.id'yi postLikeSuccess fonksiyonuna gönderiyoruz
+    setColor(!color);
+    setIcerik((prevIcerik) => ({
+      ...prevIcerik,
+      likes: color ? prevIcerik.likes - 1 : prevIcerik.likes + 1,
+    }));
+
+  };
+
+  const handleCommentClick = () => {
+    setComment(!comment);
+  };
+
+
 
 
   return (
-    <div>
-      <Card sx={{ maxWidth: 345 }}>
+    <div container
+    sx={{
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      gap: 2,
+      marginLeft:200,
+      maxWidth:400,
+      
+    }}>
+      <Card sx={{ maxWidth: 345,  }}>
         <CardMedia sx={{ height: 140 }} image={a.image} title="green iguana" />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
@@ -84,32 +88,55 @@ console.log("detailinfo", icerik);
           </Typography>
         </CardContent>
         <CardActions>
-          <IconButton aria-label="add to favorites" onClick={handleClick}>
-            <FavoriteIcon   sx={{ color: color ? "red" : "inherit" }}
-    /> 
+          <IconButton aria-label="add to favorites" onClick={handleLikeClick}>
+            <FavoriteIcon sx={{ color: color ? "red" : "inherit" }} />{" "}
+            <Typography variant="h5">{icerik.likes}</Typography>
           </IconButton>
-            <IconButton aria-label="share" onClick={handleCommentClick}>
-              <ChatBubbleOutlineIcon  />
-              <Typography variant="h5">0 count</Typography>
-            </IconButton>
-          
+
+          <IconButton aria-label="share" onClick={handleCommentClick}>
+            <ChatBubbleOutlineIcon />
+            <Typography variant="h5">{}</Typography>
+          </IconButton>
+
           <IconButton aria-label="share">
             <VisibilityIcon />
-            <Typography variant="h5">0 z</Typography>
+            <Typography variant="h5">{handleVisibility}</Typography>
           </IconButton>
         </CardActions>
         {currentUser && (
-  <>
-    <Button variant="contained" onClick={handleOpen}> Update Blog</Button>
-    <UpdateModal a={a} info={icerik} setInfo={setIcerik} open={open} handleClose={handleClose}/> 
-    <Button variant="contained" onClick={()=> {deleteBlogData(a.id); navigate("/");}}>Delete Blog</Button>
-  </>
-)}
+          <>
+            <Button variant="contained" onClick={handleOpen}>
+              Update Blog
+            </Button>
+            <UpdateModal
+              a={a}
+              info={icerik}
+              setInfo={setIcerik}
+              open={open}
+              handleClose={handleClose}
+            />
+            <Button
+              variant="contained"
+              onClick={() => {
+                deleteBlogData(a.id);
+                navigate("/");
+              }}
+            >
+              Delete Blog
+            </Button>
+          </>
+        )}
       </Card>
       {comment && (
-           <CommentCard />,
-           <CommentForm commentId={icerik.id} setComment={setIcerik} comment={icerik}/>
-          )}
+        <>
+        
+          <CommentForm
+            commentId={icerik.id}
+            setComment={setIcerik}
+            comment={icerik}
+          />
+        </>
+      )}
     </div>
   );
 };

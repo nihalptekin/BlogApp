@@ -93,7 +93,7 @@ const typographyStyle ={
     <AppBar position="static"  sx={navbarStyle} >
       <Container maxWidth="xl" >
         <Toolbar disableGutters >
-        <img src={logo} style={{width:150, height:150, borderRadius:80, marginTop:"25px", justifyContent:"start",   marginLeft:-130}}/>
+        <img src={logo} style={{width:100, height:100, borderRadius:80, marginTop:"100px", justifyContent:"start",   marginLeft:150}}/>
           <Typography
             variant="h6"
             noWrap

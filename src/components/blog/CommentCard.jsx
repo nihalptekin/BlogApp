@@ -15,12 +15,12 @@ const CommentCard = ({commentId}) => {
   }, []);
 
   console.log("getcomment", comments);
-
+ 
 
   return (
-    <div>
+    <div >
       {comments[0].map((comment) => (
-        <Card key={comment.id} sx={{ minWidth: 275, marginBottom: 10 }}>
+        <Card key={comment.id} sx={{minWidth: 275, marginBottom: 10 }}>
           <CardContent>
             <Typography variant="h5" component="div">
               {comment.user}

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Button, Card, CardActions, CardContent, CardMedia, IconButton, Typography } from '@mui/material';
+import { Button, Card, CardActions, CardContent, CardMedia, IconButton, Typography, Grid } from '@mui/material';
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
@@ -23,49 +23,55 @@ const MyBlog = () => {
     getUserBlogData();
   }, []);
 
+
   return (
-    <div sx={{  display: "flex",
-    flexDirection: "row",
-    flexWrap: "wrap",
-    BorderAllRounded:30,
-    }}>
+    <div sx={{}} >
       {userBlog?.map(a => (
-        <div sx={{flexBasis: "300px", justifyContent: "flex-end" }}>
-        <Card sx={{ maxWidth: 345 , 
+        <Grid sx={{display:"flex", justifyContent:"center", paddingTop:5, }}>
+        <Card sx={{ width: 500, 
       p: 4,
-      width: "300px",
-      height: "400px",
+      height: "550px",
       display: "flex",
       flexDirection: "column",
-      justifyContent:"space-between"
+      justifyContent:"center",
+      border:"5px solid orange"
      }} key={a.id}>
-          <CardMedia sx={{ height: 240, objectFit: "contain" }} image={a.image} title={a.image} />
+          <CardMedia sx={{ height: 340, objectFit: "contain" }} image={a.image} title={a.image} />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
               {a.title}
             </Typography>
-            <Typography gutterBottom variant="h5" component="div">
+            <Typography gutterBottom variant="p" component="div">
               {a.content}
             </Typography>
             <Typography variant="body2" color="text.secondary">
               {a.publish_date}
             </Typography>
           </CardContent>
-          <CardActions>
-            <AccountCircleIcon /> {a.author}
-            <IconButton aria-label="add to favorites">
-              <FavoriteIcon />
+          <CardActions >
+           <Grid sx={{display:"inline-block"}}> 
+           <AccountCircleIcon sx={{background:"white", color:"orange", }}/> {a.author}
+           </Grid>
+           
+            <Grid sx={{display:"flex",}}>
+            <IconButton sx={{color:"palevioletred"}}  aria-label="add to favorites">
+            <FavoriteIcon  />
             </IconButton>
+
             <IconButton aria-label="share">
-              <ChatBubbleOutlineIcon />
+            <ChatBubbleOutlineIcon sx={{color:"palevioletred"}}/>
             </IconButton>
+
             <IconButton aria-label="share">
-              <VisibilityIcon />
+            <VisibilityIcon sx={{color:"palevioletred"}} />
             </IconButton>
-            <Button size="small" onClick={()=>navigate("/detail/" + a.id, {state:{a}})}>Read More</Button>
+
+            <Button size="small" sx={{background:'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)', color:"white", height:"50px", width:"120px", marginLeft:"20px" }} onClick={()=>navigate("/detail/" + a.id, {state:{a}})}>Read More</Button>
+            </Grid>
+            
           </CardActions>
-        </Card></div>
-        
+        </Card>
+        </Grid>
       ))}
     </div>
   );

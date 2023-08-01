@@ -72,15 +72,14 @@ const useBlogsCalls = () => {
   };
   
 
-
-  // const postLikeSuccess = async (id)=> {
-  //   dispatch(fetchStart());
-  //   try {
-  //    await axiosWithPublic.post(`/api/comments/${id}`);
-  //   } catch (error) {
-  //     dispatch(fetchFail());
-  //   }
-  // };
+const postLikeSuccess = async (id)=> {
+ dispatch(fetchStart());
+  try {
+  await axiosWithPublic.post(`/api/likes/${id}/`);
+ } catch (error) {
+    dispatch(fetchFail());
+    }
+};
   const getCategories = async ()=> {
     dispatch(fetchStart());
     try {
