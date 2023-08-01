@@ -36,6 +36,7 @@ function Navbar() {
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
+    navigate("/about")
   };
 
   const handleCloseUserMenu = () => {
@@ -175,7 +176,7 @@ function Navbar() {
                 NEW BLOG
               </Button>
               <Button
-                // onClick={handle}
+                onClick={navigate("/about")}
                 sx={typographyStyle}
               >
                 ABOUT

@@ -21,10 +21,10 @@ const CommentForm = ({ commentId }) => {
   console.log('yorum', yorum);
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div >
+      <form onSubmit={handleSubmit} sx={{display:"flex", justifyContent:"center", flexDirection:"column"}}>
         <TextField
-          sx={{ width: '750px', justifyContent: 'center' }}
+          sx={{ width: '800px', display:"flex", justifyContent: 'center' }}
           id="ccc"
           label="Comment"
           multiline
@@ -33,7 +33,7 @@ const CommentForm = ({ commentId }) => {
           value={yorum.content}
           onChange={(e) => setYorum({ ...yorum, content: e.target.value })}
         />
-        <Button variant="contained" sx={{ backgroundColor: 'orange' }} type="submit">
+        <Button variant="contained" sx={{ backgroundColor: 'orange', marginTop:2, marginBottom:2 }} type="submit">
           ADD COMMENT
         </Button>
       </form>

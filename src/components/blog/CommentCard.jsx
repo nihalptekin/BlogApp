@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import Card from '@mui/material/Card';
+import Grid from '@mui/material/Grid';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import useBlogsCalls from '../../hooks/useBlogsCalls';
@@ -19,8 +20,10 @@ const CommentCard = ({commentId}) => {
 
   return (
     <div >
+    <Grid sx={{display:"flex", justifyContent:"center",}}>
       {comments[0].map((comment) => (
-        <Card key={comment.id} sx={{minWidth: 275, marginBottom: 10 }}>
+       
+        <Card key={comment.id} sx={{width:400, marginBottom:3,  flexDirection:"column" }}>
           <CardContent>
             <Typography variant="h5" component="div">
               {comment.user}
@@ -34,6 +37,7 @@ const CommentCard = ({commentId}) => {
           </CardContent>
         </Card>
       ))}
+      </Grid>
     </div>
   );
      
