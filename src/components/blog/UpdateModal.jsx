@@ -46,10 +46,11 @@ const UpdateModal = ({info, setInfo, open, handleClose}) => {
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: 400,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
     p: 4,
+    justifyContent:"center",
+    border:"3px solid orange",
+    boxShadow: 24,
+    background:"white"
   };
 
   return (
@@ -64,7 +65,7 @@ const UpdateModal = ({info, setInfo, open, handleClose}) => {
      <Box sx={BoxStyle} >
       <Box component={"form"} onSubmit={handleSubmit}>
         <Box sx={flexStyle}>
-          <Typography variant="h3">Update Blog</Typography>
+          <Typography variant="h3" sx={{fontFamily: "monospace", color:"gray", textAlign:"center"}}>Update Blog</Typography>
 
           <TextField
             id="title"
@@ -129,7 +130,7 @@ const UpdateModal = ({info, setInfo, open, handleClose}) => {
             required
           />
 
-          <Button type="submit" variant="contained">
+          <Button sx={{background:"darkorange"}} type="submit" variant="contained">
             Update Blog
           </Button>
         </Box>

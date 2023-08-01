@@ -40,8 +40,8 @@ const LoginForm = ({ values, handleChange, errors, touched, handleBlur }) => {
           helperText={touched.password && errors.password}
           error={touched.password && Boolean(errors.password)}
         />
-        <Button variant="contained" type="submit">
-          Submit
+        <Button variant="contained" type="submit" sx={{background:'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)'}}>
+          LOGIN
         </Button>
       </Box>
     </Form>

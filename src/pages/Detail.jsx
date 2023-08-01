@@ -4,6 +4,7 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid"
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
@@ -36,6 +37,7 @@ const Detail = () => {
 
   const handleVisibility=()=>{
     setVisibilityCount(visibilityCount+1)
+   
   }
   
   const handleClose = () => {
@@ -64,48 +66,43 @@ const Detail = () => {
   };
 
 
-
-
   return (
-    <div container
-    sx={{
+    <div>
+    <Grid sx={{display:"flex", justifyContent:"center", p:6}}>  
+    <Card sx={{ width: 700, 
+      p: 4,
+      height: "600px",
       display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      gap: 2,
-      marginLeft:200,
-      maxWidth:400,
-      
-    }}>
-      <Card sx={{ maxWidth: 345,  }}>
-        <CardMedia sx={{ height: 140 }} image={a.image} title="green iguana" />
+      flexDirection: "column",
+      border:"3px solid orange" }}>
+        <CardMedia sx={{ height: 440, objectFit: 'cover'  }} image={a.image} title="green iguana" />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {a.title}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" color="text.secondary" sx={{overflowY: 'scroll',height:100 }}>
             {a.content}
           </Typography>
         </CardContent>
         <CardActions>
           <IconButton aria-label="add to favorites" onClick={handleLikeClick}>
-            <FavoriteIcon sx={{ color: color ? "red" : "inherit" }} />{" "}
+            <FavoriteIcon sx={{ color: color ? "red" : "palevioletred" }} />{" "}
             <Typography variant="h5">{icerik.likes}</Typography>
           </IconButton>
 
           <IconButton aria-label="share" onClick={handleCommentClick}>
-            <ChatBubbleOutlineIcon />
-            <Typography variant="h5">{}</Typography>
+            <ChatBubbleOutlineIcon sx={{color:"palevioletred"}} />
           </IconButton>
 
           <IconButton aria-label="share">
-            <VisibilityIcon />
-            <Typography variant="h5">{handleVisibility}</Typography>
+            <VisibilityIcon sx={{color:"palevioletred"}} /> {a?.post_views}
           </IconButton>
         </CardActions>
         {currentUser && (
-          <>
-            <Button variant="contained" onClick={handleOpen}>
+          <Grid sx={{display:"flex", justifyContent:"center"}} >
+            <Button variant="contained" 
+             sx={{background:'darkorange', color:"white", height:"50px", width:"300px", marginLeft:"20px" }}
+            onClick={handleOpen}>
               Update Blog
             </Button>
             <UpdateModal
@@ -117,6 +114,7 @@ const Detail = () => {
             />
             <Button
               variant="contained"
+              sx={{background:'linear-gradient(45deg, #FE6B8B 100%, #FF8E53 90%)', color:"white", height:"50px", width:"300px", marginLeft:"20px" }}
               onClick={() => {
                 deleteBlogData(a.id);
                 navigate("/");
@@ -124,9 +122,10 @@ const Detail = () => {
             >
               Delete Blog
             </Button>
-          </>
+          </Grid>
         )}
-      </Card>
+      </Card></Grid>
+    
       {comment && (
         <>
         

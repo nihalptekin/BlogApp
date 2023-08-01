@@ -130,7 +130,7 @@ const RegisterForm = ({ values, handleChange, errors, touched, handleBlur }) => 
             helperText={touched.password2 && errors.password2}
             error={touched.password2 && Boolean(errors.password2)}
           />
-          <Button type="submit" variant="contained" size="large">
+          <Button type="submit" variant="contained" size="large" sx={{background:'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)'}}>
             SIGN UP
           </Button>
         </Box>

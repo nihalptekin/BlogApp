@@ -23,56 +23,69 @@ const MyBlog = () => {
     getUserBlogData();
   }, []);
 
+  const flexCenter = {
+    display: "flex",
+    flexDirection: { xs: "column", sm: "row" },
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 6,
+    p: 5
+  };
+
+
 
   return (
-    <div sx={{}} >
+    <div >
+     <Grid sx={flexCenter}>
       {userBlog?.map(a => (
-        <Grid sx={{display:"flex", justifyContent:"center", paddingTop:5, }}>
-        <Card sx={{ width: 500, 
+        <Card sx={{ width: 400, 
       p: 4,
-      height: "550px",
+      height: "450px",
       display: "flex",
       flexDirection: "column",
       justifyContent:"center",
-      border:"5px solid orange"
+      border:"3px solid orange"
      }} key={a.id}>
           <CardMedia sx={{ height: 340, objectFit: "contain" }} image={a.image} title={a.image} />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
               {a.title}
             </Typography>
-            <Typography gutterBottom variant="p" component="div">
-              {a.content}
+            <Typography gutterBottom variant="p" component="div" sx={{overflowY: 'scroll',height:100}}>
+              {a.content.slice(0, 100)}...
             </Typography>
             <Typography variant="body2" color="text.secondary">
               {a.publish_date}
             </Typography>
           </CardContent>
-          <CardActions >
-           <Grid sx={{display:"inline-block"}}> 
+
+          <CardActions sx={{ }}>
+   
            <AccountCircleIcon sx={{background:"white", color:"orange", }}/> {a.author}
-           </Grid>
-           
-            <Grid sx={{display:"flex",}}>
             <IconButton sx={{color:"palevioletred"}}  aria-label="add to favorites">
             <FavoriteIcon  />
             </IconButton>
 
             <IconButton aria-label="share">
-            <ChatBubbleOutlineIcon sx={{color:"palevioletred"}}/>
+            <ChatBubbleOutlineIcon sx={{color:"palevioletred", display:"flex", flexDirection:"column"}}/>
             </IconButton>
 
             <IconButton aria-label="share">
-            <VisibilityIcon sx={{color:"palevioletred"}} />
+            <VisibilityIcon sx={{color:"palevioletred"}} /> 
             </IconButton>
 
-            <Button size="small" sx={{background:'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)', color:"white", height:"50px", width:"120px", marginLeft:"20px" }} onClick={()=>navigate("/detail/" + a.id, {state:{a}})}>Read More</Button>
-            </Grid>
+            <Button size="small" sx={{background:'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)', 
+            color:"white", height:"50px", 
+            width:"120px", marginLeft:"20px" }} 
+            onClick={()=>navigate("/detail/" + a.id, {state:{a}})}>Read More</Button>
+        
             
           </CardActions>
         </Card>
-        </Grid>
+      
       ))}
+
+      </Grid>
     </div>
   );
 };

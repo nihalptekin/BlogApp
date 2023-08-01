@@ -68,17 +68,17 @@ console.log(info);
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: 400,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
     p: 4,
+    justifyContent:"center",
+    border:"3px solid orange",
+    boxShadow: 24,
   };
 
   return (
     <Box sx={BoxStyle}>
       <form onSubmit={handleSubmit}>
         <Box sx={flexStyle}>
-          <Typography variant="h3">New Blog</Typography>
+          <Typography variant="h3" sx={{textAlign:"center", fontFamily: "monospace", color:"gray"}}>New Blog</Typography>
 
           <TextField
             id="title"
@@ -155,7 +155,7 @@ console.log(info);
             required
           />
 
-          <Button type="submit" variant="contained">
+          <Button sx={{background:'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)'}} type="submit" variant="contained">
             New Blog
           </Button>
         </Box>

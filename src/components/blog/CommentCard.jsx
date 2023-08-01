@@ -25,7 +25,6 @@ const CommentCard = ({commentId}) => {
             <Typography variant="h5" component="div">
               {comment.user}
             </Typography>
-            {/* Yorum tarihini ve içeriğini göstermek isterseniz aşağıdaki satırları açabilirsiniz */}
             <Typography sx={{ mb: 1.5 }} color="text.secondary">
               {new Date(comment.time_stamp).toLocaleString()} 
             </Typography>

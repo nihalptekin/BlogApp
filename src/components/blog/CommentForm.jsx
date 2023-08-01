@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import CommentCard from './CommentCard';
-import { Box, TextField } from '@mui/material';
+import {TextField } from '@mui/material';
 import Button from '@mui/material/Button';
 import useBlogsCalls from '../../hooks/useBlogsCalls';
-import { useSearchParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+
 
 const CommentForm = ({ commentId }) => {
   const { postCommentData } = useBlogsCalls();
