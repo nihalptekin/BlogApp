@@ -5,14 +5,14 @@ import Typography from '@mui/material/Typography';
 
 const Footer = () => {
   return (
-    <AppBar position="static" color="primary" sx={{ top: 'auto', bottom: 0, backgroundColor:"#b388ff", 
-    p:2, display:"flex", justifyConten:"center", alignItems:"center",  }}>
+    <Typography color="primary" sx={{ bottom: 0, backgroundColor:"#b388ff", 
+    p:1, display:"flex", justifyContent:"center", alignItems:"center",  }}>
       <Toolbar sx={{}}>
         <Typography variant="body1" color="inherit" sx={{ flexGrow: 1,  }}>
           Copyright ©  2023   ❤︎   Developed By Nihal Tekin  
         </Typography>
-      </Toolbar>
-    </AppBar>
+      </Toolbar> 
+    </Typography>
   );
 };
 

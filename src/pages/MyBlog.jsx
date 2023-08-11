@@ -40,7 +40,7 @@ const MyBlog = () => {
       {userBlog?.map(a => (
         <Card sx={{ width: 400, 
       p: 4,
-      height: "450px",
+      height: "400px",
       display: "flex",
       flexDirection: "column",
       justifyContent:"center",
@@ -51,7 +51,7 @@ const MyBlog = () => {
             <Typography gutterBottom variant="h5" component="div">
               {a.title}
             </Typography>
-            <Typography gutterBottom variant="p" component="div" sx={{overflowY: 'scroll',height:100}}>
+            <Typography gutterBottom variant="p" component="div">
               {a.content.slice(0, 100)}...
             </Typography>
             <Typography variant="body2" color="text.secondary">

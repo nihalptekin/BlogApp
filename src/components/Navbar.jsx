@@ -65,7 +65,8 @@ function Navbar() {
 
   const navbarStyle = {
     backgroundColor: "#b388ff",
-    height: 150,
+    height: 100,
+
   };
 
   const typographyStyle = {
@@ -77,6 +78,8 @@ function Navbar() {
     letterSpacing: ".3rem",
     color: "inherit",
     textDecoration: "none",
+    mb: 5
+
   };
 
   return (
@@ -86,7 +89,7 @@ function Navbar() {
           <Toolbar disableGutters>
             <img
               src={logo}
-              style={{ width: 100, height: 100, borderRadius: 80 }}
+              style={{ width: 70, height: 70, borderRadius: 80, marginTop:-45 }}
             />
             <Typography
               variant="h6"
@@ -145,7 +148,7 @@ function Navbar() {
                 </MenuItem>
               </Menu>
             </Box>
-            <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+            <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1, }} />
             <Typography
               variant="h5"
               noWrap
@@ -176,7 +179,7 @@ function Navbar() {
                 NEW BLOG
               </Button>
               <Button
-                onClick={navigate("/about")}
+                onClick={()=>navigate("/about")}
                 sx={typographyStyle}
               >
                 ABOUT
@@ -190,10 +193,11 @@ function Navbar() {
                     alt=""
                     src="/static/images/avatar/2.jpg"
                     sx={{
-                      width: 70,
-                      height: 70,
+                      width: 60,
+                      height: 60,
                       backgroundColor: "white",
                       color: "orange",
+                      marginTop:-6
                     }}
                   />
                 </IconButton>

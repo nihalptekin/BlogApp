@@ -54,6 +54,7 @@ const useBlogsCalls = () => {
     try {
       await axiosWithToken.post(`/api/comments/${commentId}/`, comment);
       console.log("Yorum başarıyla gönderildi.");
+    getCommentData(commentId)
     } catch (error) {
       console.error("Yorum gönderirken bir hata oluştu:", error);
       dispatch(fetchFail());
@@ -70,12 +71,14 @@ const useBlogsCalls = () => {
       dispatch(fetchFail());
     }
   };
+
   
 
-const postLikeSuccess = async (id)=> {
+const postLikeSuccess = async (id, getDetailData)=> {
  dispatch(fetchStart());
   try {
-  await axiosWithPublic.post(`/api/likes/${id}/`);
+  await axiosWithToken.post(`/api/likes/${id}/`);
+  getDetailData(id)
  } catch (error) {
     dispatch(fetchFail());
     }
@@ -100,8 +103,6 @@ const postLikeSuccess = async (id)=> {
       dispatch(fetchFail());
     }
   };
-
-
 
   const deleteBlogData = async (id) => {
     dispatch(fetchStart());

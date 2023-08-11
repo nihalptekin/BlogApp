@@ -52,9 +52,9 @@ const Dashboard = () => {
     <div >
     <Grid container sx={flexCenter} mt={4}>
       {data.map(a=>(
-    <Card key={a.id} sx={{width: 400, 
+    <Card key={a.id} sx={{width: 300, 
       p: 4,
-      height: "450px",
+      height: "400px",
       display: "flex",
       flexDirection: "column",
       justifyContent:"center",

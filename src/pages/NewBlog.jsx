@@ -72,6 +72,7 @@ console.log(info);
     justifyContent:"center",
     border:"3px solid orange",
     boxShadow: 24,
+  
   };
 
   return (

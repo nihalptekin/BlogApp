@@ -13,6 +13,7 @@ const CommentCard = ({commentId}) => {
   useEffect(() => {
     getCommentData(commentId);
 
+
   }, []);
 
   console.log("getcomment", comments);
@@ -21,7 +22,7 @@ const CommentCard = ({commentId}) => {
   return (
     <div >
     <Grid sx={{display:"flex", justifyContent:"center",}}>
-      {comments[0].map((comment) => (
+      {comments.length&&comments[0].map((comment) => (
        
         <Card key={comment.id} sx={{width:400, marginBottom:3,  flexDirection:"column" }}>
           <CardContent>
