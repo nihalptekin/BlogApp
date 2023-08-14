@@ -69,20 +69,7 @@ const useAuthCalls = () => {
       toastErrorNotify("Register can not be performed");
     }
   };
-  // const comments= async () => {
-  //   dispatch(fetchStart());
-  //   try {
-  //     const { data } = await axios.post(
-  //       `${BASE_URL}/api/comments/`
-  //     );
-  //     dispatch(commentSuccess(data));
-  //     toastSuccessNotify("Comment performed");
-  //     // navigate("/detail");
-  //   } catch (err) {
-  //     dispatch(fetchFail());
-  //     toastErrorNotify("Comment can not be performed");
-  //   }; 
-  // };
+
 
   return { login, register, logout};
 };

@@ -34,11 +34,7 @@ const authSlice = createSlice({
       state.error = false;
     },
 
-    // commentSuccess:(state, action)=>{
-    //   // state.currentUser = action.payload?.username; 
-    //   state.commentData= action.payload;
-
-    // },
+  
   
     fetchFail: (state) => {
       state.loading = false;

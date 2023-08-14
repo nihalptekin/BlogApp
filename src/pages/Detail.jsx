@@ -24,12 +24,9 @@ import useAxios from '../hooks/useAxios';
 const Detail = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [color, setColor] = useState(false);
-  const [count, setCount] = useState(0);
   const [comment, setComment] = useState(false);
   const { currentUser } = useSelector((state) => state.auth);
   const { deleteBlogData, postLikeSuccess } = useBlogsCalls();
-  const [visibilityCount, setVisibilityCount] = useState(0);
   const { axiosWithToken } = useAxios();
 
   const a = location.state.a;

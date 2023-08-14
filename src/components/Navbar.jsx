@@ -18,10 +18,12 @@ import { useSelector } from "react-redux";
 import { orange } from "@mui/material/colors";
 
 import logo from "../assest/Yellow Typography Hoppy Easter Card.png";
+import { current } from "@reduxjs/toolkit";
 
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [selectedImage, setSelectedImage] = React.useState(null);
 
   const { currentUser } = useSelector((state) => state.auth);
   const { login, logout } = useAuthCalls();
@@ -61,6 +63,18 @@ function Navbar() {
 
   const handleLogoutClick = () => {
     logout();
+  };
+
+  const handleProfileClick=()=>{
+    navigate("/profile")
+  }
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setSelectedImage(imageUrl);
+    }
   };
 
   const navbarStyle = {
@@ -191,7 +205,7 @@ function Navbar() {
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar
                     alt=""
-                    src="/static/images/avatar/2.jpg"
+                    src={currentUser ?  selectedImage : "/static/images/avatar/2.jpg"} 
                     sx={{
                       width: 60,
                       height: 60,
@@ -232,7 +246,7 @@ function Navbar() {
                     <MenuItem>
                       <Typography
                         textAlign="center"
-                        onClick={handleRegisterClick}
+                        onClick={handleProfileClick}
                       >
                         Profile
                       </Typography>

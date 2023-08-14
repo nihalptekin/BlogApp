@@ -1,17 +1,14 @@
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector} from 'react-redux';
 import { Button, Modal, Typography } from '@mui/material';
-import { useState } from "react";
 import { Box, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
-
 import { useNavigate } from "react-router-dom";
 import useBlogsCalls from '../../hooks/useBlogsCalls';
 
 
 const UpdateModal = ({info, setInfo, open, handleClose}) => {
   const { getCategories, putBlogData } = useBlogsCalls();
- const { categories } = useSelector(state => state.blog);
-  const dispatch = useDispatch();
+  const { categories } = useSelector(state => state.blog);
   const navigate = useNavigate();
 
 
