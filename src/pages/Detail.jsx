@@ -119,7 +119,7 @@ const Detail = () => {
               Update Blog
             </Button>
             <UpdateModal
-              a={a}
+              a={detailData}
               info={icerik}
               setInfo={setIcerik}
               open={open}
@@ -129,7 +129,7 @@ const Detail = () => {
               variant="contained"
               sx={{background:'linear-gradient(45deg, #FE6B8B 100%, #FF8E53 90%)', color:"white", height:"50px", width:"300px", marginLeft:"20px" }}
               onClick={() => {
-                deleteBlogData(a.id);
+                deleteBlogData(detailData.id);
                 navigate("/");
               }}
             >
@@ -144,9 +144,9 @@ const Detail = () => {
         <>
         
           <CommentForm
-            commentId={a.id}
-            setComment={setIcerik}
-            comment={a}
+            commentId={detailData.id}
+            setComment={setDetailData}
+            comment={detailData}
           />
         </>
       )}

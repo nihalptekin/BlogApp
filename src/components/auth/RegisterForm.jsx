@@ -2,7 +2,9 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { Form } from "formik";
+import { useDispatch, useSelector } from "react-redux";
 import { object, string, ref } from "yup";
+
 
 export const registerSchema = object({
   username: string()
@@ -13,7 +15,7 @@ export const registerSchema = object({
     .max(20, "Soyisim 30 karakterden az olmalıdır.")
     .required(),
   email: string().email().required(),
-  image:string().email(),
+  image:string().url(),
   bio:string(),
   password: string()
     .required("password zorunludur")
@@ -29,6 +31,7 @@ export const registerSchema = object({
 });
 
 const RegisterForm = ({ values, handleChange, errors, touched, handleBlur }) => {
+  
   return (
     <div>
       <Form>
@@ -82,10 +85,10 @@ const RegisterForm = ({ values, handleChange, errors, touched, handleBlur }) => 
             error={touched.email && Boolean(errors.email)}
           />
            <TextField
-            label="Image"
+            label="image"
             name="image"
             id="image"
-            type="image"
+            type="url"
             variant="outlined"
             value={values.image}
             onChange={handleChange}

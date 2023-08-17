@@ -77,7 +77,7 @@ const MyBlog = () => {
             <Button size="small" sx={{background:'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)', 
             color:"white", height:"50px", 
             width:"120px", marginLeft:"20px" }} 
-            onClick={()=>navigate("/detail/" + a.id, {state:{a}})}>Read More</Button>
+            onClick={()=>navigate("/detail/")}>Read More</Button>
         
             
           </CardActions>

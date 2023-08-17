@@ -23,8 +23,6 @@ import { current } from "@reduxjs/toolkit";
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const [selectedImage, setSelectedImage] = React.useState(null);
-
   const { currentUser } = useSelector((state) => state.auth);
   const { login, logout } = useAuthCalls();
   const navigate = useNavigate();
@@ -69,13 +67,6 @@ function Navbar() {
     navigate("/profile")
   }
 
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setSelectedImage(imageUrl);
-    }
-  };
 
   const navbarStyle = {
     backgroundColor: "#b388ff",
@@ -205,7 +196,7 @@ function Navbar() {
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar
                     alt=""
-                    src={currentUser ?  selectedImage : "/static/images/avatar/2.jpg"} 
+                    src={currentUser ? currentUser.image : "/static/images/avatar/2.jpg"} 
                     sx={{
                       width: 60,
                       height: 60,

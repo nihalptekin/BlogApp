@@ -76,7 +76,9 @@ const Dashboard = () => {
             </Typography>
           </CardContent>
           <CardActions sx={{marginTop:5,justifyContent:"space-between" }}>
-          <div><IconButton aria-label="add to favorites">
+          <div>
+          
+          <IconButton aria-label="add to favorites">
               <FavoriteIcon sx={{color:"palevioletred"}} />
             </IconButton>
             <IconButton aria-label="share">
@@ -84,7 +86,8 @@ const Dashboard = () => {
             </IconButton>
             <IconButton aria-label="share">
               <VisibilityIcon sx={{color:"palevioletred"}}  /> 
-            </IconButton></div>
+            </IconButton>
+            </div>
             
          <div>
          <Button size="small" 

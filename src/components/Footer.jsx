@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 
 const Footer = () => {
   return (
-    <Typography color="primary" sx={{ bottom: 0, backgroundColor:"#b388ff", 
+    <Footer>  <Typography color="primary" sx={{ bottom: 0, backgroundColor:"#b388ff", 
     p:1, display:"flex", justifyContent:"center", alignItems:"center",  }}>
       <Toolbar sx={{}}>
         <Typography variant="body1" color="inherit" sx={{ flexGrow: 1,  }}>
@@ -13,6 +13,8 @@ const Footer = () => {
         </Typography>
       </Toolbar> 
     </Typography>
+    </Footer>
+
   );
 };
 

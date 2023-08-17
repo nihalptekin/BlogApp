@@ -8,6 +8,7 @@ const authSlice = createSlice({
     loading: false, // const [loading,setLoading] = useState(false)
     error: false,
     token: null,
+    // selectedImage: null,
   },
   reducers: {
     fetchStart: (state) => {
@@ -34,12 +35,13 @@ const authSlice = createSlice({
       state.error = false;
     },
 
-  
-  
     fetchFail: (state) => {
       state.loading = false;
       state.error = true;
     },
+    // setSelectedImage: (state, { payload }) => {
+    //   state.selectedImage = payload; // Seçilen görüntüyü saklama
+    // },
   },
 });
 
@@ -48,7 +50,8 @@ export const {
   loginSuccess,
   registerSuccess,
   fetchFail,
-  logoutSuccess
+  logoutSuccess,
+
 
 } = authSlice.actions;
 export default authSlice.reducer;

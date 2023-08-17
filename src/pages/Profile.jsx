@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
@@ -6,14 +7,24 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import useAxios from '../hooks/useAxios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
+
 
 
 const Profile = () => {
-    const { axiosWithToken, axiosWithPublic } = useAxios();
+    const { axiosWithToken, } = useAxios();
     const [user, setUser]= useState("")
     const dispatch = useDispatch();
-  const [selectedImage, setSelectedImage] = useState(null);
+    const {currentUser}=useSelector(state=> state.auth)
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
+    
+
+ 
+  useEffect(() => {
   const getUser = async () => {
     try {
         const { data } = await axiosWithToken.get(`/users/auth/user/`);
@@ -21,23 +32,16 @@ const Profile = () => {
     } catch (err) {
     }
   };
-  useEffect(() => {
-   getUser()
+  getUser()
   }, [])
 
 
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setSelectedImage(imageUrl);
-    }
-  };
+
 
   return (
     <Card
-      sx={{
-        width: "10%",
+    sx={{
+        width: "20%",
         position: "absolute",
         top: "50%",
         left: "50%",
@@ -46,46 +50,29 @@ const Profile = () => {
         justifyContent: "center",
         border: "3px solid orange",
         boxShadow: 24,
-      }}
-    >
-      <CardMedia
+    }}
+>
+    <CardMedia
         sx={{ objectFit: "contain" }}
         component="img"
         alt="Selected Image"
-        image={selectedImage}
-      />
+        image={currentUser?.image}
+    />
 
-      <CardContent>
+    <CardContent>
         <Typography variant="h6" component="div" sx={{ textAlign: "center" }}>
-        {user.username}
+            {user.username}
         </Typography>
 
         <Typography
-          sx={{ textAlign: "center", fontFamily: "sans-serif" }}
-          variant="p"
-          component="div"
+            sx={{ textAlign: "center", fontFamily: "sans-serif" }}
+            variant="p"
+            component="div"
         >
-           {user.email}
+            {user?.email}
         </Typography>
-
-        <Box
-          sx={{ display: "flex", justifyContent: "center", marginTop: "16px" }}
-        >
-          <input
-            accept="image/*"
-            id="image-upload"
-            type="file"
-            style={{ display: "none" }}
-            onChange={handleImageChange}
-          />
-          <label htmlFor="image-upload">
-            <Button variant="contained" component="span" sx={{}}>
-              Upload Image
-            </Button>
-          </label>
-        </Box>
-      </CardContent>
-    </Card>
+    </CardContent>
+</Card>
   );
 };
 
